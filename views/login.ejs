@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="GlobalSmart">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="description" content="Inicio de Sesión Causas">
+	<title>Inicio de Sesión</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+
+<body>
+	<section class="vh-100">
+		<div class="container vh-100">
+			<div class="row d-grid align-items-center justify-content-center vh-100">
+				<div class="col-sm-auto">
+					<div class="text-center mt-3 mb-3">
+						<h1 class="h1 fs-3 fw-bold">Causas de Tránsito</h1>
+						<img class="rounded-5" src="/images/logo.png" alt="Logo Causas de Tránsito" width="200">
+					</div>
+					<div class="card shadow-lg bg-body rounded-4 overflow-hidden" style="width: 20rem;">
+						<div class="card-header">
+							<h2 class="fs-4 card-title fw-bold text-center">
+								Inicio de Sesión
+								<!-- Color (primary):  #0d6efd -->
+								<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-login" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#0d6efd" fill="none" stroke-linecap="round" stroke-linejoin="round">
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<path d="M15 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+									<path d="M21 12h-13l3 -3" />
+									<path d="M11 15l-3 -3" />
+								</svg>
+
+							</h2>
+						</div>
+						<div class="card-body mx-3">
+							<form method="post" action="/login" class="needs-validation" novalidate="" autocomplete="off">
+								<div class="mb-3">
+									<label class="mb-2 text-muted" for="username">Nombre de Usuario</label>
+									<input id="username" type="text" class="form-control" name="username" value="" required autofocus>
+									<div class="invalid-feedback">
+										Usuario requerido
+									</div>
+								</div>
+
+								<div class="mb-3">
+									<div class="mb-2 w-100">
+										<label class="text-muted" for="password">Contraseña</label>
+										<!--
+											<a href="forgot.html" class="float-end">
+												¿Olvidaste tu contraseña?
+											</a>
+										-->
+									</div>
+									<input id="password" type="password" class="form-control" name="password" required>									
+									<div class="invalid-feedback">
+								    	Contraseña requerida
+							    	</div>
+								</div>
+								
+								<div class="d-flex align-items-center">
+									<!--
+									<div class="form-check">
+										<input type="checkbox" name="remember" id="remember" class="form-check-input">
+										<label for="remember" class="form-check-label">Recuerdame</label>
+									</div>
+									-->
+									<button type="submit" class="btn btn-primary ms-auto rounded-5">
+										Iniciar Sesión
+									</button>
+								</div>
+							</form>
+						</div>
+						<!--
+							<div class="card-footer py-3 border-0">
+								<div class="text-center">
+									¿No tienes Cuenta? &nbsp <a href="register.html" class="text-primary">Crear una</a>
+								</div>
+							</div>
+						-->
+					</div>
+                    <hr>
+					<div class="text-center text-muted">
+						Copyright &copy; 2023 &mdash; GlobalSmart
+					</div>
+                    <br>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="/js/login.js"></script>
+</body>
+</html>

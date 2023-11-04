@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Causas Todas - La Reina</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1 class="h1 fw-bold text-center mt-3">Todas las Causas Municipalidad de La Reina</h1>
+        <div class="row rows-cols-md-2 justify-content-center align-items-center mt-4 mb-5">
+            <div class="col-md-1 d-grid justify-content-center mt-3 me-4">
+                <a class="btn btn-primary text-center" href="/inicio" title="Ir a Municipalidades">
+                    Inicio
+                    <br>
+                    <img class="" src="/images/icons/home.svg" alt="Inicio">
+                </a>
+            </div>
+            <div class="col-md-5 mt-3">
+                <form action="/causas-la-reina" method="get">
+                    <label for="numeroRol" class="form-label fw-bold">Buscar Causa por Número de Rol</label>
+                    <div class="input-group">
+                        <input class="form-control" type="search" id="numeroRol" name="numeroRol"
+                            placeholder="Ej: 21566" aria-label="Buscar por Número de Rol">
+                        <button class="btn btn-primary" type="submit" title="Buscar">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
+                                width="34" height="34" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                                <path d="M21 21l-6 -6" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3 mt-5 text-center">
+                <a class="btn btn-primary fs-4" href="/causas-filtradas-la-reina"
+                    title="Causas Filtradas de La Reina">Ir a Causas Filtradas</a>
+            </div>
+        </div>
+
+        <p class="fw-bold">
+            Total de Causas Filtradas:
+            <span class="text-success fs-5 me-3">
+                <%= cantidadCausasLaReina %>
+            </span>
+            FILTRO: <span class="text-primary">
+                <%= filtroCausas %>
+            </span>
+        </p>
+        <table class="table table-light table-striped rounded-4 overflow-hidden text-center">
+            <thead>
+                <tr>
+                    <th scope="col">N°</th>
+                    <th scope="col">Número ROL</th>
+                    <th scope="col">Fecha Ingreso</th>
+                    <th scope="col">Lugar Hecho</th>
+                    <th scope="col">Fecha, Hora Hecho</th>
+                    <th scope="col">Procedencia</th>
+                    <th scope="col">Fecha Parte</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (causasLaReina) { %>
+
+                    <% causasLaReina.forEach(function(causa, index){ %>
+
+                        <tr>
+                            <th scope="row">
+                                <%= (numPagina * causasPorPagina) + index + 1 %>
+                            </th>
+                            <td>
+                                <%= causa.numeroRol.replace('0', '' ); %>
+                            </td>
+                            <td>
+                                <%= causa.fechaIngreso %>
+                            </td>
+                            <td>
+                                <%= causa.lugarHecho %>
+                            </td>
+                            <td>
+                                <%= causa.fechaHecho + ', ' + causa.horaHecho %>
+                            </td>
+                            <td>
+                                <%= causa.procedencia %>
+                            </td>
+                            <td>
+                                <%= causa.fechaParte %>
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#modalStaticCausaDetalle<%= index + 1%>">
+                                        Detalle
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-zoom-in-filled" width="27" height="27"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path
+                                                d="M14 3.072a8 8 0 0 1 2.617 11.424l4.944 4.943a1.5 1.5 0 0 1 -2.008 2.225l-.114 -.103l-4.943 -4.944a8 8 0 0 1 -12.49 -6.332l-.006 -.285l.005 -.285a8 8 0 0 1 11.995 -6.643zm-4 2.928a1 1 0 0 0 -.993 .883l-.007 .117v2h-2l-.117 .007a1 1 0 0 0 0 1.986l.117 .007h2v2l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-2h2l.117 -.007a1 1 0 0 0 0 -1.986l-.117 -.007h-2v-2l-.007 -.117a1 1 0 0 0 -.993 -.883z"
+                                                stroke-width="0" fill="currentColor" />
+                                        </svg>
+                                    </button>
+                                    <!-- Modal Detalle de la Causa -->
+                                    <div class="modal fade" id="modalStaticCausaDetalle<%= index + 1%>"
+                                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                        aria-labelledby="modalStaticCausaDetalleLabel" aria-hidden="true">
+                                        <div
+                                            class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="modalStaticCausaDetalleLabel">Causa
+                                                        ROL: <b>
+                                                            <%= causa.numeroRol.replace('0', '' ); %>
+                                                        </b>
+                                                    </h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="container-fluid">
+                                                        <div class="card border-secondary mb-4">
+                                                            <div class="card-header">
+                                                                <h4 class="card-title fw-bold text-center">Datos
+                                                                    Generales de
+                                                                    Causa</h4>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <div class="row rows-cols-2">
+                                                                    <div class="col-md-6">
+                                                                        <p>JUZGADO:
+                                                                            <strong class="ms-2">
+                                                                                <%= causa.juzgado %>
+                                                                            </strong>
+                                                                        </p>
+                                                                        <p class="">NÚMERO ROL: <strong class="ms-2">
+                                                                                <%= causa.numeroRol.replaceAll('0', ''
+                                                                                    ); %>
+                                                                            </strong></p>
+                                                                        <p>SECCIÓN: <strong class="ms-2">
+                                                                                <%= causa.seccion %>
+                                                                            </strong></p>
+                                                                        <p>FECHA INGRESO: <strong class="ms-2">
+                                                                                <%= causa.fechaIngreso %>
+                                                                            </strong></p>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <p>ACTUARIO: <strong class="ms-2">
+                                                                                <%= causa.actuario %>
+                                                                            </strong></p>
+                                                                        <p>NÚMERO PARTE: <strong class="ms-2">
+                                                                                <%= causa.numeroParte %>
+                                                                            </strong></p>
+                                                                        <p>FECHA PARTE: <strong class="ms-2">
+                                                                                <%= causa.fechaParte %>
+                                                                            </strong></p>
+                                                                        <p>PROCEDENCIA: <strong class="ms-2">
+                                                                                <%= causa.procedencia.replaceAll(/[Áê]/g,
+                                                                                    (match)=> (match === 'Á' ? 'Ñ' :
+                                                                                    '°')); %>
+                                                                            </strong></p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row rows-cols-2">
+                                                                    <div class="col-md-6">
+                                                                        <p>EMPADRONADO:
+                                                                            <strong class="ms-2">
+                                                                                <%= causa.empadronado %>
+                                                                            </strong>
+                                                                        </p>
+                                                                        <p class="">MATERIA: <strong class="ms-2">
+                                                                                <%= causa.materia %>
+                                                                            </strong></p>
+                                                                        <p>INFRACCIÓN: <strong class="ms-2">
+                                                                                <%= causa.infraccion %>
+                                                                            </strong></p>
+                                                                        <p>FECHA, HORA - HECHO: <strong class="ms-2">
+                                                                                <%= causa.fechaHecho + ', ' +
+                                                                                    causa.horaHecho %>
+                                                                            </strong></p>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <p>LUGAR HECHO: <strong class="ms-2">
+                                                                                <%= causa.lugarHecho %>
+                                                                            </strong></p>
+                                                                        <p>FECHA, HORA - CITACIÓN: <strong class="ms-2">
+                                                                                <%= causa.fechaCitacion + ', ' +
+                                                                                    causa.horaCitacion %>
+                                                                            </strong></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div class="card-footer"></div> -->
+                                                        </div>
+
+                                                        <div class="card card border-secondary mb-4">
+                                                            <div class="card-header">
+                                                                <h4 class="card-title fw-bold text-center">
+                                                                    Participantes (<%= causa.participantesCausa.length
+                                                                        %>)
+                                                                </h4>
+                                                            </div>
+                                                            <div class="card-body d-grid justify-content-center">
+                                                                <% if (causa.participantesCausa) { %>
+                                                                    <% causa.participantesCausa.forEach(function(participante,
+                                                                        index){ %>
+                                                                        <div class="card border-dark mb-3"
+                                                                            style="max-width: 32rem;">
+                                                                            <div class="card-body">
+                                                                                <p>NOMBRE:
+                                                                                    <strong class="ms-2">
+                                                                                        <%= participante.nombreParticipante
+                                                                                            %>
+                                                                                    </strong>
+                                                                                </p>
+                                                                                <p>RUT:
+                                                                                    <strong class="ms-2">
+                                                                                        <%= participante.rutParticipante
+                                                                                            %>
+                                                                                    </strong>
+                                                                                </p>
+                                                                                <p>PLACA PATENTE:
+                                                                                    <strong class="ms-2">
+                                                                                        <%= participante.placaPatente %>
+                                                                                    </strong>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <% }); %>
+                                                                            <% } else { %>
+                                                                                <h5 class="h5 text-center text-danger">
+                                                                                    No
+                                                                                    Existen Participantes asociados a
+                                                                                    esta
+                                                                                    Causa.</h5>
+                                                                                <% }; %>
+                                                            </div>
+                                                            <!-- <div class="card-footer"></div> -->
+                                                        </div>
+
+                                                        <div class="card border-secondary">
+                                                            <div class="card-header">
+                                                                <h4 class="card-title fw-bold text-center">
+                                                                    Tramitaciones (<%= causa.tramitacionesCausa.length
+                                                                        %>)
+                                                                </h4>
+                                                            </div>
+                                                            <div class="card-body d-grid justify-content-center">
+                                                                <% if (causa.tramitacionesCausa) { %>
+                                                                    <% causa.tramitacionesCausa.forEach(function(tramitacion,
+                                                                        index){ %>
+
+                                                                        <div class="card border-dark mb-3"
+                                                                            style="max-width: 32rem;">
+                                                                            <div class="card-header">
+                                                                                <strong>N° <%= index + 1 %></strong>
+                                                                            </div>
+                                                                            <div class="card-body">
+                                                                                <p>FECHA: <strong class="ms-2">
+                                                                                        <%= tramitacion.fecha %>
+                                                                                    </strong></p>
+                                                                                <p>TIPO EVENTO:
+                                                                                    <strong class="ms-2">
+                                                                                        <%= tramitacion.tipoEvento %>
+                                                                                    </strong>
+                                                                                </p>
+                                                                                <p>OBSERVACIONES:
+                                                                                    <strong class="ms-2">
+                                                                                        <%= tramitacion.observaciones %>
+                                                                                    </strong>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <% }); %>
+                                                                            <% } else { %>
+                                                                                <h5 class="h5 text-center text-danger">
+                                                                                    No
+                                                                                    existen Trámites asociados a esta
+                                                                                    Causa.
+                                                                                </h5>
+                                                                                <% }; %>
+                                                            </div>
+                                                            <!-- <div class="card-footer"></div> -->
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-lg btn-danger"
+                                                            data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        title="Detalle Placas Causa" disabled>
+                                        Placas
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-car-crash" width="30" height="30"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M10 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                                            <path d="M7 6l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-5m0 -6h8m-6 0v-5m2 0h-4" />
+                                            <path d="M14 8v-2" />
+                                            <path d="M19 12h2" />
+                                            <path d="M17.5 15.5l1.5 1.5" />
+                                            <path d="M17.5 8.5l1.5 -1.5" />
+                                        </svg>
+                                    </button>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        title="Detalle Participantes Causa" disabled>
+                                        Participantes
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-users" width="30" height="30"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                                            <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                            <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }); %>
+
+                            <% }; %>
+            </tbody>
+        </table>
+        <nav class="mt-4 mb-5" aria-label="Paginación de Causas">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <% if (numPagina> 0) { %>
+                        <a class="page-link" href="/causas-la-reina?page=<%= numPagina - 1 %>">Anterior</a>
+                        <% }; %>
+                </li>
+                <% var inicio=Math.max(0, numPagina - 4); %>
+                    <% var fin=Math.min(cantidadPaginas - 1, inicio + 9); %>
+                        <!-- Agregar enlace a la página inicial -->
+                        <% if (numPagina> 10) { %>
+                            <li class="page-item disabled">
+                                <span class="page-link">...</span>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="/causas-la-reina?page=0">
+                                    Primera página
+                                </a>
+                            </li>
+                            <% } %>
+                                <% for (var i=inicio; i <=fin; i++) { %>
+                                    <li class="page-item">
+                                        <a class="page-link <% if (i === numPagina) { %> active <% }; %>"
+                                            href="/causas-la-reina?page=<%= i %>">
+                                            <%= i + 1 %>
+                                        </a>
+                                    </li>
+                                    <% } %>
+                                        <!-- Agregar enlace a la página final -->
+                                        <% if (fin < cantidadPaginas - 1) { %>
+                                            <li class="page-item disabled">
+                                                <span class="page-link">...</span>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link"
+                                                    href="/causas-la-reina?page=<%= cantidadPaginas - 1 %>">
+                                                    Última Página
+                                                </a>
+                                            </li>
+                                            <% } %>
+                                                <li class="page-item">
+                                                    <% if (numPagina < cantidadPaginas - 1) { %>
+                                                        <a class="page-link"
+                                                            href="/causas-la-reina?page=<%= numPagina + 1 %>">Siguiente</a>
+                                                        <% } %>
+                                                </li>
+            </ul>
+        </nav>
+    </div>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <!-- <script>
+        var toolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="msg"]'));
+        var toolTipList = toolTipTriggerList.map(function (toolTipTriggerEl) {
+            return new bootstrap.Tooltip(toolTipTriggerEl);
+        });
+    </script> -->
+</body>
+
+</html>
